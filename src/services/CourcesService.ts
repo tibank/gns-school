@@ -30,7 +30,7 @@ export class CourcesService {
     }
 
     static async findAll() {
-        const token: string = await CourcesService.getApiToken()
+        const token: string = await CourcesService.getApiToken();
         const url: string = process.env.REACT_APP_BASEURL + 'core/preview-courses';
 
         return await axios.get<IResponseCourses>(url, {
