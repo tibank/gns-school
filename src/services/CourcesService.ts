@@ -34,9 +34,12 @@ export class CourcesService {
         const url: string = process.env.REACT_APP_BASEURL + 'core/preview-courses';
 
         return await axios.get<IResponseCourses>(url, {
+            withCredentials: false,
             headers: {
                 Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json; charset=utf-8',
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+                mode: 'no-cors',
             },
         });
     }
