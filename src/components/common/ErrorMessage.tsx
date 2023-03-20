@@ -26,6 +26,10 @@ const ErrorContent = styled.div`
   justify-content: space-between;
 `;
 
+const DivButton = styled.div`
+  margin: 1.5rem 0;
+`;
+
 export const ErrorMessage: FC<IErrorMessageProps> = ({ children }) => {
   const errorWindow = useRef<HTMLDivElement>(null);
 
@@ -41,9 +45,9 @@ export const ErrorMessage: FC<IErrorMessageProps> = ({ children }) => {
     <div ref={errorWindow} className={`${styles.errorLayer}`}>
       <ErrorContent>
         <div>{children}</div>
-        <div className={styles.btnBlock}>
+        <DivButton>
           <AlertButton onClick={hiddenMessage}>OK</AlertButton>
-        </div>
+        </DivButton>
       </ErrorContent>
     </div>
   );
