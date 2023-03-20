@@ -1,30 +1,50 @@
 import React, { FC, useRef } from 'react';
+import styled from 'styled-components';
+import { AlertButton } from '../style/AlertButton';
 import styles from './ErrorMessage.module.css';
 
 interface IErrorMessageProps {
-    message: string;
+  children: React.ReactNode;
 }
 
-export const ErrorMessage: FC<IErrorMessageProps> = ({ message }) => {
-    const errorWindow = useRef<HTMLDivElement>(null);
+const ErrorContent = styled.div`
+  position: relative;
+  background: lightcoral;
+  border-radius: 1rem;
+  border: 0.2rem solid indianred;
+  height: 10vh;
+  min-height: 5vh;
+  width: 30vw;
+  margin: auto;
+  padding: 2rem;
+  display: flex;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  flex-direction: column;
+  justify-content: space-between;
+`;
 
-    const hiddenMessage = (e: React.MouseEvent<HTMLButtonElement>) => {
-        const modal = errorWindow.current;
-        if (modal) {
-            modal.style.display = 'none';
-        }
-    };
+export const ErrorMessage: FC<IErrorMessageProps> = ({ children }) => {
+  const errorWindow = useRef<HTMLDivElement>(null);
 
-    return (
-        <div ref={errorWindow} className={`${styles.errorLayer}`}>
-            <div className={`${styles.errorContent}`}>
-                <div>{message}</div>
-                <div className={styles.btnBlock}>
-                    <button className={styles.btnOK} onClick={hiddenMessage}>
-                        OK
-                    </button>
-                </div>
-            </div>
+  const hiddenMessage = (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log('close click');
+    const style = errorWindow.current?.style;
+    if (style) {
+      style.display = 'none';
+    }
+  };
+
+  return (
+    <div ref={errorWindow} className={`${styles.errorLayer}`}>
+      <ErrorContent>
+        <div>{children}</div>
+        <div className={styles.btnBlock}>
+          <AlertButton onClick={hiddenMessage}>OK</AlertButton>
         </div>
-    );
+      </ErrorContent>
+    </div>
+  );
 };
